@@ -1,0 +1,37 @@
+<ion-header><br>
+  <ion-toolbar color="success">
+    <ion-title>Update Breeding Status </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-card>
+    <ion-card-content>
+      <ion-list class="line-input">
+        <ion-item>
+          <ion-label position="floating" class="ion-text-wrap">Breeding Status*: </ion-label>
+          <ion-select [(ngModel)]="model.breeding_Status" class="owner-type" placeholder="Status">
+            <ion-select-option  *ngFor="let item of breedingStatusList" value="{{item}}">{{item}}</ion-select-option>
+          </ion-select>
+        </ion-item><br>
+
+        <ion-item>
+          <ion-label position="floating" class="ion-text-wrap">PD Status*: </ion-label>
+          <ion-select [(ngModel)]="model.pd_Status" class="owner-type" placeholder="Status">
+            <ion-select-option  *ngFor="let item of pdStatusList" value="{{item}}">{{item}}</ion-select-option>
+          </ion-select>
+        </ion-item><br>
+
+        <ion-item>
+          <ion-label class="ion-text-wrap">Date*: </ion-label>
+          <ion-input  [(ngModel)]="model.pd_Status_Date" displayFormat="DD-MM-YYYY" type="date">
+          </ion-input>
+        </ion-item><br>
+
+        <ion-button color="success"  (click)="updateBreedingStatus()" fill="outline">Update Status</ion-button>
+        <ion-button color="danger"  (click)="exit()" fill="outline">Exit</ion-button>
+
+      </ion-list>
+    </ion-card-content>
+  </ion-card>
+</ion-content>

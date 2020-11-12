@@ -1,0 +1,117 @@
+ion-title{
+    font-size: 15px;
+}
+ion-toolbar{
+    background-color: whitesmoke;
+}
+ion-content{
+    background-color: whitesmoke;
+    --offset-bottom: auto!important;
+    --overflow: hidden;
+    overflow: auto;
+    &::-webkit-scrollbar {
+    display: none;
+    }
+}
+
+.line-input {
+    margin-bottom: 0!important;
+    ion-item {
+        --border-color: transparent!important;
+        --highlight-height: 0;
+        border: 1px solid #dedede;
+        border-radius: 4px;
+        &.item-has-focus {
+            border: 1px solid greenyellow;
+        }
+        ion-label {
+            color: black!important;
+            font-weight: 300;
+            font-size: 12px!important;
+        }
+    }
+}
+ion-input{
+    font-size: 12px!important;
+}
+ion-label {
+    font-weight: bold;
+}
+
+ion-card-subtitle{
+    text-align: center;
+}
+
+ion-item{
+    height: 55px;
+}
+
+ion-label#farm-type{
+    font-size: 13px!important;
+}
+
+ion-label{
+    font-size: 9px;
+}
+
+ion-select.owner-type{
+        font-size: 13px; //sets placeholder font size
+}
+
+.icon-size{
+    height: 25px;
+    width: 25px;
+}
+.btn-right{
+    float: right;
+}
+.btn-left{
+    float: left;
+}
+
+.nextButton{
+    border:1px solid blue;
+    color: blue;
+    border-radius: 30px;
+    margin-top: 10px;
+    min-height: 37px;
+}
+
+.backButton{
+    border:1px solid blue;
+    color: blue;
+    border-radius: 30px;
+    margin-top: 10px;
+    min-height: 37px;
+    max-width: 150px;
+}
+
+.exitBtn{
+    background-color:red;
+    color: white;
+    border-radius: 30px;
+    margin-top: 10px;
+    min-height: 37px;
+    max-width: 150px;
+}
+.saveBtn{
+    background-color:green;
+    color: white;
+    border-radius: 30px;
+    margin-top: 10px;
+    min-height: 37px;
+    max-width: 150px;
+}
+
+.exitButtonPlacement{
+    margin-top: 10px
+}
+
+.ion-select{
+    max-width: 100% !important;
+}
+
+.exitButtonsize{
+    width: 120px;
+    font-size: 15px;
+}

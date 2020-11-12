@@ -1,0 +1,654 @@
+<ion-header>
+  <ion-toolbar color="success">
+    <ion-buttons slot="start">
+      <ion-menu-button style="color: white;" slot="start"></ion-menu-button>
+    </ion-buttons>
+    <ion-title>AI/NS</ion-title>
+    <ion-buttons slot="end">
+      <ion-icon (click)="logout()" class="icon-size" name="log-in-outline"></ion-icon>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-card>
+    <ion-card-content>
+      <ion-label id="lb">Registration For AI/NS And Calving</ion-label>
+      <ion-list class="line-input">
+        <ion-item>
+          <ion-label position="floating">Enter Tag No and press ENTER*: </ion-label>
+          <ion-input type="text" [(ngModel)]="animalTagNumber" numbersOnly
+            maxlength="10" (keypress)="keyPressNumbers($event)" class="ion-text-right">
+          </ion-input>
+        </ion-item>
+      </ion-list>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card>
+    <ion-card-header>
+      <ion-label id="lb">Details of </ion-label>
+      <ion-segment (ionChange)="segmentChanged($event)" [(ngModel)]="segment" color="success">
+        <ion-segment-button value="0">
+          <ion-label>Farmer</ion-label>
+        </ion-segment-button>
+        <ion-segment-button value="1">
+          <ion-label>Animals</ion-label>
+        </ion-segment-button>
+        <ion-segment-button value="2">
+          <ion-label>Pedigree</ion-label>
+        </ion-segment-button>
+      </ion-segment>
+    </ion-card-header>
+
+    <!-- Get farmers detais -->
+    <ion-card-content *ngIf="ownerdetails">
+      <ion-list class="line-input">
+        <ion-item>
+          <ion-label position="fixed" class="ion-text-wrap">Farmer's name: </ion-label>
+          <ion-input readonly [(ngModel)]="owner_name" class="ion-text-right"></ion-input>
+        </ion-item><br>
+
+        <ion-item>
+          <ion-label position="fixed" class="ion-text-wrap">Village: </ion-label>
+          <ion-input readonly [(ngModel)]="owner_village" class="ion-text-right"></ion-input>
+        </ion-item><br>
+
+        <ion-item>
+          <ion-label position="fixed" class="ion-text-wrap">Gewog: </ion-label>
+          <ion-input readonly [(ngModel)]="owner_gewog" class="ion-text-right"></ion-input>
+        </ion-item><br>
+
+        <ion-item>
+          <ion-label position="fixed" class="ion-text-wrap">Dzongkhag: </ion-label>
+          <ion-input readonly [(ngModel)]="owner_dzongkhag" class="ion-text-right"></ion-input>
+        </ion-item><br>
+
+        <ion-item>
+          <ion-label position="fixed" class="ion-text-wrap">Mobile No: </ion-label>
+          <ion-input readonly [(ngModel)]="mobile_number" class="ion-text-right"></ion-input>
+        </ion-item><br>
+
+      </ion-list>
+    </ion-card-content>
+
+    <!-- get animal details -->
+    <ion-card-content *ngIf="animadetails">
+      <ion-list class="line-input">
+        <ion-item>
+          <ion-label position="fixed" class="ion-text-wrap">Animal name: </ion-label>
+          <ion-input readonly [(ngModel)]="animalname" class="ion-text-right"></ion-input>
+        </ion-item><br>
+
+        <ion-item>
+          <ion-label position="fixed" class="ion-text-wrap">Age: </ion-label>
+          <ion-input readonly [(ngModel)]="animalAge" class="ion-text-right"></ion-input>
+        </ion-item><br>
+
+        <ion-item>
+          <ion-label position="fixed" class="ion-text-wrap">Sex: </ion-label>
+          <ion-input readonly [(ngModel)]="sex" class="ion-text-right"></ion-input>
+        </ion-item><br>
+
+        <ion-item>
+          <ion-label position="fixed" class="ion-text-wrap">Category: </ion-label>
+          <ion-input readonly [(ngModel)]="category" class="ion-text-right"></ion-input>
+        </ion-item><br>
+
+        <ion-item>
+          <ion-label position="fixed" class="ion-text-wrap">CHBPP: </ion-label>
+          <ion-input readonly [(ngModel)]="CHBPP" class="ion-text-right"></ion-input>
+        </ion-item><br>
+
+        <ion-item>
+          <ion-label position="fixed" class="ion-text-wrap">Migration: </ion-label>
+          <ion-input readonly [(ngModel)]="migration" class="ion-text-right"></ion-input>
+        </ion-item><br>
+
+        <ion-item>
+          <ion-label position="fixed" class="ion-text-wrap">Migration Region: </ion-label>
+          <ion-input readonly [(ngModel)]="migrationRegion" class="ion-text-right"></ion-input>
+        </ion-item><br>
+
+        <ion-item>
+          <ion-label position="fixed" class="ion-text-wrap">BCS: </ion-label>
+          <ion-input readonly [(ngModel)]="bcs" class="ion-text-right"></ion-input>
+        </ion-item><br>
+
+        <ion-item>
+          <ion-label position="fixed" class="ion-text-wrap">Housing Type: </ion-label>
+          <ion-input readonly [(ngModel)]="housing_type_option" class="ion-text-right">
+          </ion-input>
+        </ion-item><br>
+
+      </ion-list>
+    </ion-card-content>
+
+    <!-- get pedigree information -->
+    <ion-card-content *ngIf="pedigreeinformation">
+      <ion-list class="line-input">
+        <ion-item>
+          <ion-label position="fixed " class="ion-text-wrap">DAM No: </ion-label>
+          <ion-input readonly [(ngModel)]="damNumber" class="ion-text-right"></ion-input>
+        </ion-item><br>
+
+        <ion-item>
+          <ion-label position="fixed" class="ion-text-wrap">DAM Name: </ion-label>
+          <ion-input readonly [(ngModel)]="damName" class="ion-text-right">{{damName}}</ion-input>
+        </ion-item><br>
+
+        <ion-item>
+          <ion-label position="fixed" class="ion-text-wrap">DAM Exotic: </ion-label>
+          <ion-input readonly [(ngModel)]="damExotic" class="ion-text-right"></ion-input>
+        </ion-item><br>
+
+        <ion-item>
+          <ion-label position="fixed" class="ion-text-wrap">DAM Breed: </ion-label>
+          <ion-input readonly [(ngModel)]="damBreed" class="ion-text-right"></ion-input>
+        </ion-item><br>
+
+        <ion-item>
+          <ion-label position="fixed" class="ion-text-wrap">Sire No: </ion-label>
+          <ion-input [(ngModel)]="sireNumber" (keypress)="keyPressNumbers($event)" class="ion-text-right"></ion-input>
+        </ion-item><br>
+
+        <ion-item>
+          <ion-label position="fixed" class="ion-text-wrap">Sire Name: </ion-label>
+          <ion-input readonly [(ngModel)]="sireName" class="ion-text-right"></ion-input>
+        </ion-item><br>
+
+        <ion-item>
+          <ion-label position="fixed" class="ion-text-wrap">Sire Exotic: </ion-label>
+          <ion-input readonly [(ngModel)]="sireExotic" class="ion-text-right"></ion-input>
+        </ion-item><br>
+
+        <ion-item>
+          <ion-label position="fixed" class="ion-text-wrap">Sire Breed: </ion-label>
+          <ion-input readonly [(ngModel)]="sireBreed" class="ion-text-right"></ion-input>
+        </ion-item><br>
+
+        <ion-item>
+          <ion-label position="fixed" class="ion-text-wrap">Exotic: </ion-label>
+          <ion-input readonly [(ngModel)]="selfExotic" class="ion-text-right"></ion-input>
+        </ion-item><br>
+
+        <ion-item>
+          <ion-label position="fixed" class="ion-text-wrap">Breed: </ion-label>
+          <ion-input readonly [(ngModel)]="selfBreedType" class="ion-text-right"></ion-input>
+        </ion-item><br>
+
+      </ion-list>
+    </ion-card-content>
+  </ion-card>
+
+  <!-- if the ai and ns is already done with given tagnumber just update -->
+  <div *ngIf="showAiDetails">
+    <!-- Details of animal breeding -->
+    <ion-card>
+
+      <!-- Ai type breeding for animals -->
+      <ion-card-header>
+        <ion-label id="lb">Details of AI Breeding</ion-label>
+      </ion-card-header>
+      <ion-card-content>
+        <ion-list class="line-input">
+          <ion-item>
+            <ion-label position="fixed" class="ion-text-wrap">Semen type: </ion-label>
+            <ion-input [(ngModel)]="semenType" readonly class="ion-text-right"></ion-input>
+          </ion-item><br>
+
+          <ion-item>
+            <ion-label position="fixed" class="ion-text-wrap">Date of AI: </ion-label>
+            <ion-input [(ngModel)]="dateOfAi" displayFormat="DD-MM-YYYY" readonly class="ion-text-right"></ion-input>
+          </ion-item><br>
+
+          <ion-item>
+            <ion-label position="fixed" class="ion-text-wrap">Sire Number*: </ion-label>
+            <ion-input [(ngModel)]="bullNumber" readonly class="ion-text-right"></ion-input>
+          </ion-item><br>
+
+          <ion-item>
+            <ion-label position="fixed" class="ion-text-wrap">Bull Name*: </ion-label>
+            <ion-input [(ngModel)]="bullName" readonly class="ion-text-right"></ion-input>
+          </ion-item><br>
+
+          <ion-item>
+            <ion-label position="fixed" class="ion-text-wrap">Sire Exotic*: </ion-label>
+            <ion-input [(ngModel)]="bullExotic" readonly class="ion-text-right"></ion-input>
+          </ion-item><br>
+
+          <ion-item>
+            <ion-label position="fixed" class="ion-text-wrap">Breed type*: </ion-label>
+            <ion-input [(ngModel)]="bullType" readonly class="ion-text-right"></ion-input>
+          </ion-item><br>
+
+          <ion-item>
+            <ion-label position="fixed" class="ion-text-wrap">Technician Name: </ion-label>
+            <ion-input [(ngModel)]="technicianName" readonly class="ion-text-right"></ion-input>
+          </ion-item><br>
+
+          <ion-item>
+            <ion-label position="fixed" class="ion-text-wrap">AI Center: </ion-label>
+            <ion-input [(ngModel)]="aiCenter" readonly class="ion-text-right"></ion-input>
+          </ion-item><br>
+
+          <ion-item>
+            <ion-label position="fixed" class="ion-text-wrap">AI Technician Type: </ion-label>
+            <ion-input [(ngModel)]="technicianType" readonly class="ion-text-right"></ion-input>
+          </ion-item><br>
+
+          <ion-item>
+            <ion-label position="fixed" class="ion-text-wrap">Latitude: </ion-label>
+            <ion-input [(ngModel)]="latitude" readonly class="ion-text-right"></ion-input>
+          </ion-item><br>
+
+          <ion-item>
+            <ion-label position="fixed" class="ion-text-wrap">Longitude: </ion-label>
+            <ion-input [(ngModel)]="longitude" readonly class="ion-text-right"></ion-input>
+          </ion-item><br>
+
+          <ion-item>
+            <ion-label position="fixed" class="ion-text-wrap">Altitude: </ion-label>
+            <ion-input [(ngModel)]="altitude" readonly class="ion-text-right"></ion-input>
+          </ion-item><br>
+
+          <!-- <ion-item>
+            <ion-label position="fixed" class="ion-text-wrap">No of AI done: </ion-label>
+            <ion-input readonly class="ion-text-right"></ion-input>
+          </ion-item><br> -->
+
+          <ion-button color="success" shape="round" (click)="updateAi()">Update Details</ion-button>
+
+        </ion-list>
+      </ion-card-content>
+    </ion-card>
+  </div>
+
+  <!-- if the ai and ns is not done hide animal ai details -->
+  <div *ngIf="HideAiDetails">
+    <ion-card>
+      <ion-card-header>
+        <ion-label id="lb">Select Breeding Type</ion-label>
+        <ion-segment (ionChange)="segmentChangedBreedingMethod($event)" [(ngModel)]="segment1" color="success">
+          <ion-segment-button value="0">
+            <ion-label>AI</ion-label>
+          </ion-segment-button>
+          <ion-segment-button value="1">
+            <ion-label>NS</ion-label>
+          </ion-segment-button>
+        </ion-segment>
+      </ion-card-header>
+
+      <!-- Ai breeding type for animals -->
+      <ion-card-content *ngIf="ai">
+        <ion-list class="line-input">
+          <ion-item>
+            <ion-label class="ion-text-wrap">Semen type:* </ion-label>
+            <ion-select [(ngModel)]="p_semenType" class="owner-type" placeholder="Semen type">
+              <ion-select-option *ngFor="let item of semenTypeList" value="{{item}}"> {{item}}
+              </ion-select-option>
+            </ion-select>
+          </ion-item><br>
+
+          <ion-item>
+            <ion-label position="stack" class="ion-text-wrap">Date of AI*: </ion-label>
+            <ion-input [(ngModel)]="p_dateOfAi" (ionChange)="showValidDate(p_dateOfAi)" displayFormat="DD-MM-YYYY" type="date" class="ion-text-right">
+            </ion-input>
+          </ion-item><br>
+          <p style="color: red;">{{errorMessage}}</p>
+
+          <ion-item>
+            <ion-label position="floating" class="ion-text-wrap">Sire Number*: </ion-label>
+            <ion-input [(ngModel)]="p_bullNumber" (keypress)="keyPressNumbers($event)"  maxlength="10" class="ion-text-right"></ion-input>
+          </ion-item><br>
+
+          <ion-item>
+            <ion-label position="floating" class="ion-text-wrap">Sire Name*: </ion-label>
+            <ion-input type="text" [(ngModel)]="p_bullName" class="ion-text-right"></ion-input>
+          </ion-item><br>
+
+          <ion-item>
+            <ion-label class="ion-text-wrap">Sire Exotic %*: </ion-label>
+            <ion-select [(ngModel)]="p_bullExotic" class="owner-type" placeholder="Blood %">
+              <ion-select-option *ngFor="let se of exoticList;" value="{{se.exoticBlood}}">{{se.exoticBlood}}
+              </ion-select-option>
+            </ion-select>
+          </ion-item><br>
+
+          <ion-item>
+            <ion-label class="ion-text-wrap">Sire Breed*: </ion-label>
+            <ion-select [(ngModel)]="P_bullTypeId" class="owner-type" placeholder="Breed Type">
+              <ion-select-option *ngFor="let bT of breedTypeList;" value="{{bT.breedId}}">{{bT.breedType}}
+              </ion-select-option>
+            </ion-select>
+          </ion-item><br>
+
+          <ion-item>
+            <ion-label position="floating" class="ion-text-wrap">Technician Name*: </ion-label>
+            <ion-input [(ngModel)]="p_technicianName" class="ion-text-right"></ion-input>
+          </ion-item><br>
+
+
+          <ion-item>
+            <ion-label position="fixed" class="ion-text-wrap">AI Center: </ion-label>
+            <ion-input readonly class="ion-text-right">{{aiCenterDesc}}</ion-input>
+          </ion-item><br>
+
+          <ion-item>
+            <ion-label class="ion-text-wrap">AI Technician Type:</ion-label>
+            <ion-select [(ngModel)]="p_technicianType" class="owner-type" placeholder="Technician Type">
+              <ion-select-option *ngFor="let tech of technicianTypeList;" value="{{tech}}">{{tech}}
+              </ion-select-option>
+            </ion-select>
+          </ion-item><br>
+
+          <ion-item>
+            <ion-label position="fixed" class="ion-text-wrap">Gewog*: </ion-label>
+            <ion-input [(ngModel)]="p_gewog" readonly class="ion-text-right">{{gewog}}</ion-input>
+          </ion-item><br>
+
+          <ion-item>
+            <ion-label class="ion-text-wrap">Village*:</ion-label>
+            <ion-select [(ngModel)]="p_village" (ionChange)="getGeoLocation()" class="owner-type"
+              placeholder="Villages">
+              <ion-select-option *ngFor="let vl of villageList;" value="{{vl.village_Serial_No}}">{{vl.village_Name}}
+              </ion-select-option>
+            </ion-select>
+          </ion-item><br>
+
+          <ion-item>
+            <ion-label position="fixed" class="ion-text-wrap">Latitude: </ion-label>
+            <ion-input readonly class="ion-text-right">{{geoLatitude}}</ion-input>
+          </ion-item><br>
+
+          <ion-item>
+            <ion-label position="fixed" class="ion-text-wrap">Longitude: </ion-label>
+            <ion-input readonly class="ion-text-right">{{geoLongitude}}</ion-input>
+          </ion-item><br>
+
+          <ion-item>
+            <ion-label position="fixed" class="ion-text-wrap">Altitude: </ion-label>
+            <ion-input [(ngModel)]="p_altitude" class="ion-text-right"> </ion-input>
+          </ion-item><br>
+
+          <ion-button color="success" shape="round" (click)="saveAiTypeBreeding()">Save Details</ion-button>
+
+        </ion-list>
+      </ion-card-content>
+
+      <!-- NS type breeding for animals -->
+      <ion-card-content *ngIf="ns">
+        <ion-list class="line-input">
+          <ion-item>
+            <ion-label position="floating" class="ion-text-wrap">Date of NS: </ion-label>
+            <ion-input [(ngModel)]="N_Date" displayFormat="DD-MM-YYYY" type="date" class="ion-text-right"></ion-input>
+          </ion-item><br>
+
+          <ion-item>
+            <ion-label position="floating" class="ion-text-wrap">Bull Number: </ion-label>
+            <ion-input type="fixed" numbersOnly maxlength="10" [(ngModel)]="N_BullNumber" class="ion-text-right"></ion-input>
+          </ion-item><br>
+
+          <ion-item>
+            <ion-label position="floating" class="ion-text-wrap">Bull Name: </ion-label>
+            <ion-input type="fixed" [(ngModel)]="N_BullName" class="ion-text-right"></ion-input>
+          </ion-item><br>
+
+          <ion-item>
+            <ion-label class="ion-text-wrap">Bull Exotic %</ion-label>
+            <ion-select [(ngModel)]="N_BullExotic" class="owner-type" placeholder="Blood %">
+              <ion-select-option *ngFor="let se of exoticList;" value="{{se.exoticBlood}}">{{se.exoticBlood}}
+              </ion-select-option>
+            </ion-select>
+          </ion-item><br>
+
+          <ion-item>
+            <ion-label class="ion-text-wrap">Bull Breed</ion-label>
+            <ion-select [(ngModel)]="N_BullTypeId" class="owner-type" placeholder="Breed Type">
+              <ion-select-option *ngFor="let bT of breedTypeList;" value="{{bT.breedId}}">{{bT.breedType}}
+              </ion-select-option>
+            </ion-select>
+          </ion-item><br>
+
+          <ion-button color="success" shape="round" (click)="saveNsTypeBreeding()">Save Details</ion-button>
+        </ion-list>
+      </ion-card-content>
+    </ion-card>
+  </div>
+
+  <div *ngIf="showNsdetails">
+    <ion-card>
+      <ion-card-header>
+        <ion-label id="lb">Details of NS Breeding</ion-label>
+      </ion-card-header>
+      <ion-card-content>
+        <ion-list class="line-input">
+          <ion-item>
+            <ion-label position="fixed" class="ion-text-wrap">Bull Number: </ion-label>
+            <ion-input readonly>{{bullNumber}}</ion-input>
+          </ion-item><br>
+
+          <ion-item>
+            <ion-label position="fixed" class="ion-text-wrap">Bull Name: </ion-label>
+            <ion-input readonly class="ion-text-right">{{bullName}}</ion-input>
+          </ion-item><br>
+
+          <ion-item>
+            <ion-label position="fixed" class="ion-text-wrap">Bull Exotic: </ion-label>
+            <ion-input readonly class="ion-text-right">{{bullExotic}}</ion-input>
+          </ion-item><br>
+
+          <ion-item>
+            <ion-label position="fixed" class="ion-text-wrap">Bull Breed: </ion-label>
+            <ion-input readonly class="ion-text-right">{{bullType}}</ion-input>
+          </ion-item><br>
+
+        </ion-list>
+      </ion-card-content>
+    </ion-card>
+  </div>
+
+  <!-- Status Save -->
+  <div *ngIf="statusSave">
+    <ion-card>
+      <ion-card-header>
+        <ion-label id="lb">Update Status</ion-label>
+      </ion-card-header>
+      <ion-card-content>
+        <ion-list class="line-input">
+          <ion-item>
+            <ion-label position="floating" class="ion-text-wrap">Breeding Status*: </ion-label>
+            <ion-select [(ngModel)]="model.breeding_Status" class="owner-type" placeholder="Status">
+              <ion-select-option *ngFor="let item of breedingStatusList" value="{{item}}">{{item}}</ion-select-option>
+            </ion-select>
+          </ion-item><br>
+
+          <ion-item>
+            <ion-label position="floating" class="ion-text-wrap">PD Status*: </ion-label>
+            <ion-select [(ngModel)]="model.pd_Status" class="owner-type" placeholder="Status">
+              <ion-select-option *ngFor="let item of pdStatusList" value="{{item}}">{{item}}</ion-select-option>
+            </ion-select>
+          </ion-item><br>
+
+          <ion-item>
+            <ion-label class="ion-text-wrap">Date*: </ion-label>
+            <ion-input [(ngModel)]="model.pd_Status_Date" displayFormat="DD-MM-YYYY" type="date">
+            </ion-input>
+          </ion-item><br>
+
+          <ion-button color="success" (click)="updateBreedingStatusWhenPdstausIsNull()" shape="round">Update Status
+          </ion-button>
+          <!-- <ion-button color="danger" shape="round">Exit</ion-button> -->
+
+        </ion-list>
+      </ion-card-content>
+    </ion-card>
+  </div>
+
+  <!-- Update status -->
+  <div *ngIf="statusUpdate">
+    <ion-card>
+      <ion-card-header>
+        <ion-label id="lb">Status Details</ion-label>
+      </ion-card-header>
+      <ion-card-content>
+        <ion-list class="line-input">
+
+          <ion-item>
+            <ion-label position="fixed" class="ion-text-wrap">Breeding Status: </ion-label>
+            <ion-input readonly class="ion-text-right">{{breedingStatus}}</ion-input>
+          </ion-item><br>
+
+          <ion-item>
+            <ion-label position="fixed" class="ion-text-wrap">PD Status: </ion-label>
+            <ion-input readonly class="ion-text-right">{{pdStatus}}</ion-input>
+          </ion-item><br>
+
+          <ion-item>
+            <ion-label position="fixed" class="ion-text-wrap">Date: </ion-label>
+            <ion-input readonly class="ion-text-right">{{pdStausdate}}</ion-input>
+          </ion-item><br>
+
+        </ion-list>
+
+        <ion-button color="success" shape="round" (click)="breedinStatusUpdate()">Update</ion-button>
+
+      </ion-card-content>
+    </ion-card>
+  </div>
+
+  <!-- //Event update -->
+  <div>
+    <ion-card>
+      <ion-card-header>
+        <ion-label id="lb">Event Type</ion-label>
+      </ion-card-header>
+      <ion-card-content>
+        <ion-list class="line-input">
+
+          <!-- Selecting event type from list -->
+          <ion-item>
+            <ion-label position="fixed" class="ion-text-wrap">Event Type*: </ion-label>
+            <ion-select class="owner-type" [(ngModel)]="modelAiNs.type_Of_Event" (ionChange)="eventType($event)"
+              placeholder="Event type">
+              <ion-select-option *ngFor="let item of eventTypeList" value="{{item}}">{{item}}</ion-select-option>
+            </ion-select>
+          </ion-item><br>
+
+          <!-- normal event for animals -->
+          <div *ngIf="normal">
+            <ion-item>
+              <ion-label class="ion-text-wrap">Date*: </ion-label>
+              <ion-input [(ngModel)]="modelAiNs.date_Of_Pd_Status"  displayFormat="DD-MM-YYYY" type="date">
+              </ion-input>
+            </ion-item><br>
+
+            <ion-button color="success" shape="round" (click)="updateEvent(modelAiNs.type_Of_Event)">Save Details
+            </ion-button>
+          </div>
+
+          <!-- assiste event for animals -->
+          <div *ngIf="assist">
+            <ion-item>
+              <ion-label position="fixed" class="ion-text-wrap">Assist Type*: </ion-label>
+              <ion-select [(ngModel)]="modelAiNs.type_Of_Assited_Formula" class="owner-type" placeholder="Assist type">
+                <ion-select-option *ngFor="let item of assistedTypeList" value="{{item}}">{{item}}</ion-select-option>
+              </ion-select>
+            </ion-item><br>
+
+            <ion-item>
+              <ion-label class="ion-text-wrap">Date*: </ion-label>
+              <ion-input [(ngModel)]="modelAiNs.date_Of_Pd_Status" displayFormat="DD-MM-YYYY" type="date">
+              </ion-input>
+            </ion-item><br>
+
+            <ion-button color="success" shape="round" (click)="updateEvent(modelAiNs.type_Of_Event)">Save Details
+            </ion-button>
+
+          </div>
+          <!-- still on birth even for animals -->
+          <div *ngIf="birth">
+            <ion-item>
+              <ion-label class="ion-text-wrap">Date*: </ion-label>
+              <ion-input [(ngModel)]="modelAiNs.date_Of_Pd_Status" displayFormat="DD-MM-YYYY" type="date">
+              </ion-input>
+            </ion-item><br>
+
+            <ion-button color="success" shape="round" (click)="updateEvent(modelAiNs.type_Of_Event)">Save Details
+            </ion-button>
+          </div>
+
+          <!-- abortion event for animals -->
+          <div *ngIf="abortion">
+            <ion-item>
+              <ion-label position="floating" class="ion-text-wrap">Reason for Death*: </ion-label>
+              <ion-input [(ngModel)]="modelAiNs.remarks" type="text">
+              </ion-input>
+            </ion-item><br>
+
+            <ion-item>
+              <ion-label class="ion-text-wrap">Date*: </ion-label>
+              <ion-input [(ngModel)]="modelAiNs.date_Of_Pd_Status" displayFormat="DD-MM-YYYY" type="date">
+              </ion-input>
+            </ion-item><br>
+
+            <ion-button color="success" shape="round" (click)="updateEvent(modelAiNs.type_Of_Event)">Save Details
+            </ion-button>
+          </div>
+
+        </ion-list>
+      </ion-card-content>
+    </ion-card>
+  </div>
+
+  <!-- show calf regestration for normal and assit type even -->
+  <div *ngIf="showCalfRegeistration">
+    <ion-card>
+      <ion-card-header>
+        <ion-label id="lb">Calve registration</ion-label>
+      </ion-card-header>
+
+      <ion-card-content>
+        <ion-list class="line-input">
+
+          <ion-item>
+            <ion-label class="ion-text-wrap">Date of Calving: </ion-label>
+            <ion-input [(ngMoodel)]="calf_birth_date" displayFormat="DD-MM-YYYY" type="date"></ion-input>
+          </ion-item><br>
+
+          <ion-item>
+            <ion-label position="fixed" class="ion-text-wrap">Sex*: </ion-label>
+            <ion-select class="owner-type" placeholder="Assist type" [(ngMoodel)]="calve_sex">
+              <ion-select-option value="male">Male</ion-select-option>
+              <ion-select-option value="female">Female</ion-select-option>
+            </ion-select>
+          </ion-item><br>
+
+          <ion-item>
+            <ion-label position="floating" class="ion-text-wrap">CalveRegistration No:* </ion-label>
+            <ion-input [(ngModel)]="clave_registration_no"></ion-input>
+          </ion-item><br>
+
+          <ion-item>
+            <ion-label position="fixed" class="ion-text-wrap">Exotic:* </ion-label>
+            <ion-input [(ngModel)]="calf_exotic" readonly></ion-input>
+          </ion-item><br>
+
+
+          <ion-item>
+            <ion-label position="fixed" class="ion-text-wrap">Breed Type*: </ion-label>
+            <ion-select [(ngModel)]="calf_breed_type" class="owner-type" placeholder="breed type">
+              <ion-select-option *ngFor="let c of breedTypeList;" value="{{c.breedId}}">{{c.breedType}}
+              </ion-select-option>
+
+            </ion-select>
+          </ion-item><br>
+
+        </ion-list>
+        <ion-button color="success" shape="round" (click)="registerCalveDetails()">Save Details
+        </ion-button>
+      </ion-card-content>
+    </ion-card>
+  </div>
+
+</ion-content>

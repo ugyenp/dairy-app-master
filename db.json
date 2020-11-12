@@ -1,0 +1,24 @@
+{
+  "Farmer": [
+    {
+      "cidnummber": "11106002323",
+      "name": "Ugyen Penjor",
+      "village": "Kerong",
+      "gewog":"Choekhorling",
+      "dzongkhag":"P/gatshel"
+    },
+    {
+      "cidnummber": "11106002324",
+      "name": "Sonam Penjor",
+      "village": "Choekhor",
+      "gewog":"Choekhor",
+      "dzongkhag":"Bumthang"
+    }
+  ],
+  "RegisterFarmersAnimal": [
+    
+  ],
+  "profile": {
+    "name": "typicode"
+  }
+}

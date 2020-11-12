@@ -1,0 +1,7 @@
+{
+  "name": "NDIS",
+  "integrations": {
+    "cordova": {}
+  },
+  "type": "angular"
+}
